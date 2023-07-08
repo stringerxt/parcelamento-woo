@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Meu Plugin de Pagamento
+ * Plugin Name: Meu Parcelamento PIX/BOLETO/CARTÃO
  * Description: Plugin para exibir opções de pagamento personalizadas.
  * Version: 1.8
  * Author: Luis Antonio
