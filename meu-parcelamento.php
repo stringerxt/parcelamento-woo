@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Meu Parcelamento PIX/BOLETO/CARTÃO
  * Description: Plugin para exibir opções de pagamento personalizadas.
- * Version: 1.8
+ * Version: 1.9
  * Author: Luis Antonio
  */
 
@@ -22,16 +22,20 @@ function meu_shortcode_woocommerce() {
     $desconto_pix = get_option('mpg_desconto_pix', 5);
     $desconto_boleto = get_option('mpg_desconto_boleto', 6);
 
-   if ($product->is_type('variable')) {
-    $preco_regular = $product->get_variation_regular_price();
-    $preco_desconto = $product->get_variation_sale_price();
-} else {
-    $preco_regular = $product->get_regular_price();
+    $preco_regular = $product->get_price();
     $preco_desconto = $product->get_sale_price();
-}
-    $preco_boleto = $preco_regular * (100 - $desconto_boleto) / 100;
-    $preco_desconto_avista = $preco_regular * (100 - $desconto_pix) / 100;
-	$layout = intval(get_option('mpg_layout'));
+
+    // Verifica se há desconto no produto
+    if ( $preco_desconto < $preco_regular ) {
+        $preco_boleto = $preco_regular * (100 - $desconto_boleto) / 100;
+        $preco_desconto_avista = $preco_regular * (100 - $desconto_pix) / 100;
+    } else {
+        // Se não houver desconto, usa o preço regular para boleto e pagamento à vista
+        $preco_boleto = $preco_regular;
+        $preco_desconto_avista = $preco_regular;
+    }
+
+    $layout = intval(get_option('mpg_layout'));
 
     ob_start();
     ?>
@@ -92,17 +96,17 @@ function meu_shortcode_woocommerce() {
         <span class="parcelas">sem juros no Cartão</span>
     </div>
 
-    <div class="opcao-pagamento">
-        <img src="<?php echo plugin_dir_url(__FILE__) . 'images/boleto.png'; ?>" alt="Ícone 2">
-        <span class="preco">R$ <?php echo number_format( $preco_boleto, 2, ',', '.' ); ?>&nbsp;</span>
-        <span class="parcelas">à vista no Boleto (Desconto de <?php echo $desconto_boleto; ?>%)</span>
-    </div>
+      <div class="opcao-pagamento">
+                <img src="<?php echo plugin_dir_url(__FILE__) . 'images/boleto.png'; ?>" alt="Ícone 2">
+                <span class="preco">R$ <?php echo number_format($preco_regular - ($preco_regular * ($desconto_boleto / 100)), 2, ',', '.'); ?>&nbsp;</span>
+                <span class="parcelas">à vista no Boleto (Desconto de <?php echo $desconto_boleto; ?>%)</span>
+            </div>
 
-    <div class="opcao-pagamento">
-        <img src="<?php echo plugin_dir_url(__FILE__) . 'images/pix.png'; ?>" alt="Ícone 3">
-        <span class="preco">R$ <?php echo number_format( $preco_desconto_avista, 2, ',', '.' ); ?>&nbsp;</span>
-        <span class="parcelas">à vista no Pix (Desconto de <?php echo $desconto_pix; ?>%)</span>
-    </div>
+		<div class="opcao-pagamento">
+                <img src="<?php echo plugin_dir_url(__FILE__) . 'images/pix.png'; ?>" alt="Ícone 1">
+                <span class="preco">R$ <?php echo number_format($preco_regular - ($preco_regular * ($desconto_pix / 100)), 2, ',', '.'); ?>&nbsp;</span>
+                <span class="parcelas">à vista no Pix (Desconto de <?php echo $desconto_pix; ?>%)</span>
+            </div>
 
     <p>
 																										
