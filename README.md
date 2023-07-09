@@ -14,4 +14,5 @@ O Meu Plugin de Opções de Pagamento é um plugin do WordPress que permite exib
 Depois de instalar e ativar o plugin, você pode usar o shortcode `[meu_shortcode]` para exibir as opções de pagamento personalizadas em suas páginas WooCommerce.
 ## Bug e Fix
 Versão 1.8 Bug com preço regular e promocional 
+
 Versão 1.9 resolido problema com o preço regular e promocional nos meios de pagamento.
