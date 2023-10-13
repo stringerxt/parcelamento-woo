@@ -7,7 +7,7 @@
  */
 
 // Função para exibir as opções de pagamento personalizadas
-function meu_shortcode_woocommerce() {
+function mpg_meu_shortcode_woocommerce() {
     global $product;
 
     // Verifica se existe um produto
@@ -99,7 +99,7 @@ function meu_shortcode_woocommerce() {
       <div class="opcao-pagamento">
                 <img src="<?php echo plugin_dir_url(__FILE__) . 'images/boleto.png'; ?>" alt="Ícone 2">
                 <span class="preco">R$ <?php echo number_format($preco_regular - ($preco_regular * ($desconto_boleto / 100)), 2, ',', '.'); ?>&nbsp;</span>
-                <span class="parcelas">à vista no Boleto (Desconto de <?php echo $desconto_boleto; ?>%)</span>
+                <span class "parcelas">à vista no Boleto (Desconto de <?php echo $desconto_boleto; ?>%)</span>
             </div>
 
 		<div class="opcao-pagamento">
@@ -109,14 +109,10 @@ function meu_shortcode_woocommerce() {
             </div>
 
     <p>
-																										
-																											 
         <u><a href="#" class="ver-parcelas">Ver parcelas</a></u>
     </p>
 
-															 
     <div class="parcelas-info">
-																			   
         <span>1x sem juros de R$ <?php echo number_format($preco_regular, 2, ',', '.'); ?> no Cartão de crédito</span>
         <?php
         for ($i = 2; $i <= $parcelas_sem_juros; $i++) {
@@ -128,13 +124,13 @@ function meu_shortcode_woocommerce() {
 		  <div class="opcao-pagamento">
                 <img src="<?php echo plugin_dir_url(__FILE__) . 'images/pix.png'; ?>" alt="Ícone 1">
                 <span class="preco">R$ <?php echo number_format($preco_regular - ($preco_regular * ($desconto_pix / 100)), 2, ',', '.'); ?>&nbsp;</span>
-                <span class="parcelas">à vista no Pix (Desconto de <?php echo $desconto_pix; ?>%)</span>
+                <span class "parcelas">à vista no Pix (Desconto de <?php echo $desconto_pix; ?>%)</span>
             </div>
 
             <div class="opcao-pagamento">
                 <img src="<?php echo plugin_dir_url(__FILE__) . 'images/boleto.png'; ?>" alt="Ícone 2">
                 <span class="preco">R$ <?php echo number_format($preco_regular - ($preco_regular * ($desconto_boleto / 100)), 2, ',', '.'); ?>&nbsp;</span>
-                <span class="parcelas">à vista no Boleto (Desconto de <?php echo $desconto_boleto; ?>%)</span>
+                <span class "parcelas">à vista no Boleto (Desconto de <?php echo $desconto_boleto; ?>%)</span>
             </div>
 
            <div class="opcao-pagamento">
@@ -146,7 +142,6 @@ function meu_shortcode_woocommerce() {
 
             <a href="#" class="ver-parcelas">Ver Parcelas</a>
 			    <div class="parcelas-info">
-																			   
         <span>1x sem juros de R$ <?php echo number_format($preco_regular, 2, ',', '.'); ?> no Cartão de crédito</span>
         <?php
         for ($i = 2; $i <= $parcelas_sem_juros; $i++) {
@@ -174,10 +169,10 @@ function meu_shortcode_woocommerce() {
     <?php
     return ob_get_clean();
 }
-add_shortcode('meu_shortcode', 'meu_shortcode_woocommerce');
+add_shortcode('meu_shortcode', 'mpg_meu_shortcode_woocommerce');
 
 // Função para registrar as configurações do plugin
-function meu_plugin_pagamento_register_settings() {
+function mpg_meu_plugin_pagamento_register_settings() {
     add_option('mpg_tamanho_fonte_precos', '16px');
     add_option('mpg_cor_fonte', '#000000');
     add_option('mpg_parcelas_semjuros', 10);
@@ -192,14 +187,13 @@ function meu_plugin_pagamento_register_settings() {
 	register_setting('meu-plugin-pagamento-settings-group', 'mpg_layout');
 }
 
-
 // Função para criar a página de configurações do plugin
-function meu_plugin_pagamento_create_menu() {
-    add_menu_page('Configurações do Meu Plugin de Pagamento', 'Plugin Pagamento', 'manage_options', 'meu-plugin-pagamento-settings', 'meu_plugin_pagamento_settings_page', 'dashicons-tickets', 30);
+function mpg_meu_plugin_pagamento_create_menu() {
+    add_menu_page('Configurações do Meu Plugin de Pagamento', 'Plugin Pagamento', 'manage_options', 'meu-plugin-pagamento-settings', 'mpg_meu_plugin_pagamento_settings_page', 'dashicons-tickets', 30);
 }
 
 // Função para renderizar a página de configurações do plugin
-function meu_plugin_pagamento_settings_page() {
+function mpg_meu_plugin_pagamento_settings_page() {
     ?>
     <div class="wrap">
         <h1>Configurações do Meu Plugin de Pagamento</h1>
@@ -218,7 +212,7 @@ function meu_plugin_pagamento_settings_page() {
             <?php do_settings_sections('meu-plugin-pagamento-settings-group'); ?>
 
             <table class="form-table">
-							<tr valign="top">
+				<tr valign="top">
 					<th scope="row">Layout</th>
 					<td>
 						<select name="mpg_layout">
@@ -271,5 +265,5 @@ function meu_plugin_pagamento_settings_page() {
 }
 
 // Registro das configurações e criação do menu
-add_action('admin_init', 'meu_plugin_pagamento_register_settings');
-add_action('admin_menu', 'meu_plugin_pagamento_create_menu');
+add_action('admin_init', 'mpg_meu_plugin_pagamento_register_settings');
+add_action('admin_menu', 'mpg_meu_plugin_pagamento_create_menu');
