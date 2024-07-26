@@ -31,7 +31,7 @@ Depois de instalar e ativar o plugin, você pode usar o shortcode `[meu_shortcod
 - **Testado Até o WordPress**: 6.3.2
 - **Licença**: GPL-3.0
 - **Última Atualização**: 12 de outubro de 2023
-- **Autor**: Seu Nome
+- **Autor**: Luis Antônio 
 
 ## Perguntas Frequentes
 
